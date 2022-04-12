@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="menu_select" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Menu id="Menu00" taborder="0" left="18" top="37" width="582" height="53" innerdataset="Dataset00" captioncolumn="caption" enablecolumn="enable" idcolumn="id" levelcolumn="level" onmenuclick="Menu_onmenuclick"/>
+        <TextArea id="StEventLog" taborder="1" readonly="false" left="16" top="296" height="245" wordWrap="english" background="azure" color="black" font="12pt MS Gothic" tabstop="false" right="272"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="id" type="STRING" size="256"/>
+          <Column id="caption" type="STRING" size="256"/>
+          <Column id="level" type="STRING" size="256"/>
+          <Column id="enable" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="id">A</Col>
+            <Col id="caption">A</Col>
+            <Col id="level">0</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">B</Col>
+            <Col id="caption">B</Col>
+            <Col id="level">0</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">BA</Col>
+            <Col id="caption">B-A</Col>
+            <Col id="level">1</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">BB</Col>
+            <Col id="caption">B-B</Col>
+            <Col id="level">1</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">C</Col>
+            <Col id="caption">C</Col>
+            <Col id="level">0</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">CA</Col>
+            <Col id="caption">C-A</Col>
+            <Col id="level">1</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">CB</Col>
+            <Col id="caption">C-B</Col>
+            <Col id="level">1</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">CBA</Col>
+            <Col id="caption">C-B-A</Col>
+            <Col id="level">2</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">CBB</Col>
+            <Col id="caption">C-B-B</Col>
+            <Col id="level">2</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">D</Col>
+            <Col id="caption">D</Col>
+            <Col id="level">0</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">DA</Col>
+            <Col id="caption">D-A</Col>
+            <Col id="level">1</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">DAA</Col>
+            <Col id="caption">D-A-A</Col>
+            <Col id="level">2</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">DAAA</Col>
+            <Col id="caption">D-A-A-A</Col>
+            <Col id="level">3</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">DAAB</Col>
+            <Col id="caption">D-A-A-B</Col>
+            <Col id="level">3</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">E</Col>
+            <Col id="caption">E</Col>
+            <Col id="level">0</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">F</Col>
+            <Col id="caption">F</Col>
+            <Col id="level">0</Col>
+            <Col id="enable">1</Col>
+          </Row>
+          <Row>
+            <Col id="id">G</Col>
+            <Col id="caption">G</Col>
+            <Col id="level">0</Col>
+            <Col id="enable">1</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.Menu_onmenuclick = function(obj:nexacro.Menu,e:nexacro.MenuClickEventInfo)
+{
+	this.StEventLog.insertText(obj.id+"_"+e.id+"_"+e.eventid+" ");
+};
+]]></Script>
+  </Form>
+</FDL>

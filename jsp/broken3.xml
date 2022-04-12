@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root xmlns="http://www.nexacroplatform.com/platform/dataset">
+	<Parameters>
+		<Parameter id="ErrorCode" type="int">0</Parameter>
+		<Parameter id="ErrorMsg" type="string">Success</Parameter>
+	</Parameters>
+	<Dataset id="ds">
+		<ColumnInfo>
+			<Column id="c0" type="string" size="20"/>
+			<Column id="c1" type="string" size="20"/>
+			<Column id="c2" type="string" size="20"/>
+		</ColumnInfo>
+		<Rows>
+			<Row>
+				<Col id="c0">X</Col>
+				<Col id="c1">Y</Col

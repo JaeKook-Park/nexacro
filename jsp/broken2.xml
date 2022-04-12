@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root xmlns="http://www.nexacroplatform.com/platform/dataset">
+	<Parameters>
+		<Parameter id="ErrorCode" type="int">0</Parameter>
+		<Parameter id="ErrorMsg" type="string">Success</Parameter>
+	</Parameters>
+<!--
+
+<!-- The contents of this file will be loaded for each web application -->
+<Context>
+
+    <!-- Default set of monitored resources. If one of these changes, the    -->
+    <!-- web application will be reloaded.                                   -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>
+    <WatchedResource  test="<Dataset id="ds"" >${catalina.base}/conf/web.xml</WatchedResource>
+
+</Context>
+<!--
+	<ColumnInfo>
+<<<<Column id="Column0" type="string" />size="20"
+<Column id="Column1" type="string" aaa="/>"size="20"
+<Column id="Column2" type="string" size="20"/>
+	</ColumnInfo>
+	<Rows>
+		<Row>
+			<Col id="Column0">X</Col>
+			<Col id="Column1">Y</Co</Col>><Col id="Column2">ZZ</Col>>>
+			

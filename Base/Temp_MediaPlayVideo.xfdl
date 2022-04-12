@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="1.5">
+  <TypeDefinition url="..\default_typedef.xml"/>
+  <Form id="Temp_MediaPlay" classname="Temp_MediaPlay" left="0" top="0" width="1023" height="431" titletext="New Form">
+    <Layouts>
+      <Layout>
+        <WebBrowser id="WebBrowser00" left="1.56%" top="74" right="19.35%" height="318" taborder="2"/>
+        <Button id="Button01" taborder="3" text="Call URL" left="1.08%" top="11" right="87.19%" height="50" onclick="Button01_onclick"/>
+        <Button id="Button02" taborder="4" text="set video file" left="15.15%" top="11" right="73.12%" height="50" onclick="Button02_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.0"><![CDATA[
+this.Button01_onclick = function(obj:Button,  e:nexacro.ClickEventInfo)
+{
+	this.WebBrowser00.set_url("http://172.10.13.122:8080/tobe/html/video.html");
+
+}
+
+this.Button02_onclick = function(obj:Button,  e:nexacro.ClickEventInfo)
+{
+
+	//http://www.w3schools.com/html/mov_bbb.ogg
+	//http://www.w3schools.com/html/mov_bbb.mp4
+
+	var doc = this.WebBrowser00.getProperty("document");
+	
+	var docAudio = doc.callMethod("getElementById", "video");
+	
+	var docAudioSource = doc.callMethod("getElementById", "videosrc");
+	docAudioSource.setProperty("src","http://www.w3schools.com/html/mov_bbb.mp4");
+	docAudio.callMethod("load");
+	docAudio.callMethod("play");
+	
+	var rtn = docAudioSource.getProperty("src");
+}
+]]></Script>
+  </Form>
+</FDL>

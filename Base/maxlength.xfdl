@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="maxlegth" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Edit id="Edit00" taborder="0" left="57" top="50" width="233" height="40" maxlength="5"/>
+        <Edit id="Edit00_00" taborder="1" left="324" top="50" width="233" height="40"/>
+        <Button id="Button00" taborder="2" text="Button00" left="590" top="45" width="120" height="50"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

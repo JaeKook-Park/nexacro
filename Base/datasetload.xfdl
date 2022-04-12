@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="datasetload" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Grid id="Grid00" taborder="0" left="38" top="34" width="291" height="136" binddataset="Dataset00">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Column0"/>
+                <Cell col="1" text="Column1"/>
+                <Cell col="2" text="Column2"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:Column0"/>
+                <Cell col="1" text="bind:Column1"/>
+                <Cell col="2" text="bind:Column2"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="Button00" taborder="1" text="Success" left="38" top="180" width="184" height="35" onclick="Button00_onclick"/>
+        <Button id="Button01" taborder="2" text="ErrorCode -1" left="38" top="220" width="184" height="35" onclick="Button01_onclick"/>
+        <Button id="Button03" taborder="3" text="Broken XML" left="38" top="260" width="184" height="35" onclick="Button03_onclick"/>
+        <Button id="Button05" taborder="4" text="DatasetLoadType=errorallow" left="246" top="185" width="184" height="35" onclick="Button05_onclick"/>
+        <TextArea id="StEventLog" taborder="5" readonly="false" left="16" top="330" height="170" wordWrap="english" background="azure" color="black" font="12pt &quot;MS Gothic&quot;" right="272"/>
+        <Button id="Button03_00" taborder="6" text="Broken3 XML" left="238" top="260" width="184" height="35" onclick="Button03_00_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00" onload="Dataset00_onload">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.loadTest("jsp::success.xml");
+};
+this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.loadTest("jsp::error.xml");
+};
+this.Button03_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.loadTest("jsp::broken.xml");
+};
+this.Button03_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.loadTest("jsp::broken3.xml");
+};
+this.loadTest = function(url)
+{
+	this.Dataset00.set_url(url);
+	this.Dataset00.set_serverdatasetid('ds');
+	this.Dataset00.clear();
+	this.Dataset00.load();
+}
+this.Dataset00_onload = function(obj:nexacro.NormalDataset,e:nexacro.DSLoadEventInfo)
+{
+	this.StEventLog.insertText("@"+obj.id+"_"+e.eventid+"("+e.errorcode+","+e.errormsg+","+e.reason+") ");
+	var cis = this.Dataset00.colinfos;
+	var data="";
+	for(var r = 0; r < this.Dataset00.rowcount; r++) {
+		if(r>0)	data +="|";
+		for(var n=0; n < cis.length; n++) {
+			if(n>0)	data +=",";
+			var d = this.Dataset00.getColumn(r,n);
+			data += d;
+		}
+	}
+	this.StEventLog.insertText("@"+obj.id+"_"+e.eventid+"_data("+data+") ");
+};
+
+this.Button05_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	nexacro.getEnvironment().set_datasetloadtype("errorallow");
+	this.StEventLog.insertText("@DatasetLoadType(errorallow) ");
+};
+
+
+]]></Script>
+  </Form>
+</FDL>

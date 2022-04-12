@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="tss8168" width="1024" height="768" titletext="New Form">
+    <Layouts>
+      <Layout height="768" mobileorientation="landscape" width="1024" stepcount="0">
+        <Static id="StaticA" taborder="0" text="A" left="16" top="80" width="35" height="35" onclick="StaticA_onclick" background="aquamarine" textAlign="center" verticalAlign="middle"/>
+        <Static id="StaticTest" taborder="3" text="1. Click Spin00&#13;&#10;2. Press '1','0','0','0','0'&#13;&#10;3. Click [A]" left="384" top="30" height="224" width="416" background="powderblue" padding="8px 8px 8px 8px" textAlign="left" verticalAlign="top" font="12pt &quot;MS Gothic&quot;" onclick="StaticTest_onclick"/>
+        <TextArea id="StEventLog" taborder="1" readonly="false" left="16" top="296" width="952" height="245" wordWrap="english" background="azure" color="black" font="12pt MS Gothic" tabstop="false"/>
+        <TextArea id="StLog" taborder="2" left="16" top="550" width="956" height="154" readonly="false" color="black" font="12pt MS Gothic" wordWrap="char" tabstop="false"/>
+        <Spin id="Spin00" taborder="4" left="104" top="20" width="196" height="45" buttonsize="30" displaycomma="true"/>
+        <Static id="Static00" taborder="5" text="Spin00" left="27" top="28" width="63" height="24" textAlign="right" verticalAlign="middle" font="14pt &quot;MS Gothic&quot;"/>
+        <Button id="Button00" taborder="6" text="Button00" left="16" top="142" width="120" height="50" onclick="Button00_onclick"/>
+      </Layout>
+      <Layout name="Layout0" screenid="tab" width="800" height="1280" mobileorientation="portrait">
+        <Static id="StaticTest" left="364" top="30" width="416" height="224"/>
+        <TextArea id="StEventLog" left="16" top="296" width="764" height="245"/>
+        <TextArea id="StLog" left="16" top="550" width="768" height="154"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var elem = document.getElementById(this.getObjectElementId(this.Spin00.spinedit)+":input");
+	this.StEventLog.insertText("@Spin00_spinedit_text(" + elem.value + ") ");
+};
+
+this.StaticA_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	var elem = document.getElementById(this.getObjectElementId(this.Spin00.spinedit)+":input");
+	this.StEventLog.insertText("@Spin00_spinedit_text(" + elem.value + ") ");
+};
+this.getObjectElementId = function(obj) {
+	if(obj && obj._control_element && obj._control_element.handle) {
+		return obj._control_element.handle.id;
+	}
+	return null;
+}]]></Script>
+    <Objects>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="data" type="STRING" size="256"/>
+          <Column id="code" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="data">りんご</Col>
+            <Col id="code">aaa</Col>
+          </Row>
+          <Row>
+            <Col id="data">みかん</Col>
+            <Col id="code">bbb</Col>
+          </Row>
+          <Row>
+            <Col id="data">バナナ</Col>
+            <Col id="code">ccc</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="sublayout" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Div id="Div00" taborder="0" text="Div00" left="60" top="50" width="517" height="235" border="1px solid black">
+          <Layouts>
+            <Layout>
+              <Button id="Button00" taborder="0" text="Button00" left="67" top="43" width="120" height="50"/>
+              <Button id="Button01" taborder="1" text="Button01" left="238" top="42" width="120" height="50"/>
+            </Layout>
+            <Layout name="Layout0">
+              <Button id="Button00" left="67" top="113" width="120" height="50"/>
+              <Button id="Button01" left="139" top="44" width="120" height="50"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+      <Layout name="Layout0" screenid="Tablet_screen" width="800" height="1280" mobileorientation="portrait" type="default"/>
+    </Layouts>
+  </Form>
+</FDL>

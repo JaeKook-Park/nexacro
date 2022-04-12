@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="fluid" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Div id="Div00" taborder="0" left="72" top="26" width="530" height="360" border="1px solid black">
+          <Layouts>
+            <Layout type="table" horizontalgap="20" spacing="20" tabletemplate="1* 1* / 1* 1*">
+              <Button id="Button00" taborder="0" text="Button00" left="30" top="17" width="120" height="50" padding="10px 10px 10px 10px"/>
+              <Button id="Button01" taborder="1" text="Button01" left="111" top="70" width="120" height="50"/>
+              <Button id="Button02" taborder="2" text="Button02" left="50" top="41" width="120" height="50"/>
+              <Button id="Button03" taborder="3" text="Button03" left="61" top="147" width="120" height="50"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

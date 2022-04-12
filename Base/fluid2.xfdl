@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="fluid" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="1280">
+        <Div id="Div00" taborder="0" text="Div00" left="10" top="10" width="660" height="340" background="aliceblue">
+          <Layouts>
+            <Layout type="horizontal" tabletemplate="1* 1* 1* / 1* 1* 1*" tablecellalign="center center" tablecellincompalign="center center" horizontalgap="20" verticalgap="30" flexcrossaxisalign="center" flexcrossaxiswrapalign="start" flexwrap="wrap">
+              <Static id="Static1" taborder="0" text="One" left="25" top="32" width="100" height="100" background="blueviolet" color="white" verticalAlign="middle" textAlign="center" font="20px/normal &quot;MS Gothic&quot;"/>
+              <Static id="Static2" taborder="1" text="Two" left="150" top="32" width="100" height="100" background="springgreen" color="white" verticalAlign="middle" textAlign="center" font="20px/normal &quot;MS Gothic&quot;"/>
+              <Static id="Static3" taborder="2" text="Three" left="274" top="32" width="100" height="100" background="mediumblue" color="white" verticalAlign="middle" textAlign="center" font="20px/normal &quot;MS Gothic&quot;"/>
+              <Static id="Static4" taborder="3" text="Four" left="400" top="32" width="100" height="100" background="mediumblue" color="white" verticalAlign="middle" textAlign="center" font="20px/normal &quot;MS Gothic&quot;"/>
+              <Static id="Static5" taborder="4" text="Five" left="530" top="32" width="100" height="100" background="mediumblue" color="white" verticalAlign="middle" textAlign="center" font="20px/normal &quot;MS Gothic&quot;"/>
+              <Static id="Static6" taborder="5" text="Six" left="25" top="142" width="100" height="100" background="mediumblue" color="white" verticalAlign="middle" textAlign="center" font="20px/normal &quot;MS Gothic&quot;"/>
+              <Static id="Static7" taborder="6" text="Seven" left="150" top="142" width="100" height="100" background="mediumblue" color="white" verticalAlign="middle" textAlign="center" font="20px/normal &quot;MS Gothic&quot;"/>
+              <Static id="Static8" taborder="7" text="Eight" left="274" top="142" width="100" height="100" background="mediumblue" color="white" verticalAlign="middle" textAlign="center" font="20px/normal &quot;MS Gothic&quot;"/>
+              <Static id="Static9" taborder="8" text="Nine" left="400" top="142" width="100" height="100" background="mediumblue" color="white" verticalAlign="middle" textAlign="center" font="20px/normal &quot;MS Gothic&quot;"/>
+            </Layout>
+            <Layout name="Layout0" type="horizontal" horizontalgap="30" verticalgap="90" flexwrap="wrap"/>
+          </Layouts>
+        </Div>
+      </Layout>
+      <Layout name="Layout0" screenid="Tablet_screen" width="800" height="1280" mobileorientation="portrait" type="default">
+        <Div id="Div00" background="coral" left="10" top="10" width="520" height="500"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

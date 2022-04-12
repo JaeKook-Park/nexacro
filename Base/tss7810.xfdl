@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="tss7809" width="1024" height="768" titletext="New Form" onerror="tss7810_onerror">
+    <Layouts>
+      <Layout height="768" mobileorientation="landscape" width="1024">
+        <Static id="StaticA" taborder="0" text="A" left="420" top="283" width="35" height="35" onclick="StaticA_onclick" background="aquamarine" textAlign="center" verticalAlign="middle"/>
+        <TextArea id="StEventLog" taborder="1" readonly="false" left="16" top="330" height="132" wordWrap="english" background="azure" color="black" font="12pt &quot;MS Gothic&quot;" right="16"/>
+        <TextArea id="StLog" taborder="2" left="16" top="468" height="121" readonly="false" color="black" font="12pt &quot;MS Gothic&quot;" wordWrap="english" right="16"/>
+        <Static id="Static02" taborder="3" text="1. Click left 5 buttons [Success],[ErrorCode -1],[Not Found],[Broken XML],[HTML Response]&#13;&#10;2. Click [DatasetLoadType=errorallow]&#13;&#10;3. Click left 5 buttons [Success],[ErrorCode -1],[Not Found],[Broken XML],[HTML Response]&#13;&#10;4. Click [HTML Response]&#13;&#10;5. Click [A]" left="420" top="17" height="226" width="588" background="powderblue" padding="8px 8px 8px 8px" textAlign="left" verticalAlign="top" font="10pt/normal &quot;Arial&quot;"/>
+        <Grid id="Grid00" taborder="4" left="16" top="22" width="378" height="88" binddataset="Dataset00">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="Column0"/>
+                <Cell col="1" text="Column1"/>
+                <Cell col="2" text="Column2"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:Column0"/>
+                <Cell col="1" text="bind:Column1"/>
+                <Cell col="2" text="bind:Column2"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="Button00" taborder="5" text="Success" left="16" top="123" width="184" height="35" onclick="Button00_onclick"/>
+        <Button id="Button01" taborder="6" text="ErrorCode -1" left="16" top="163" width="184" height="35" onclick="Button01_onclick"/>
+        <Button id="Button02" taborder="7" text="Not Found" left="16" top="203" width="184" height="35" onclick="Button02_onclick"/>
+        <Button id="Button03" taborder="8" text="Broken XML" left="16" top="243" width="184" height="35" onclick="Button03_onclick"/>
+        <Button id="Button04" taborder="9" text="HTML Response" left="16" top="283" width="184" height="35" onclick="Button04_onclick"/>
+        <Button id="Button05" taborder="10" text="DatasetLoadType=errorallow" left="210" top="283" width="184" height="35" onclick="Button05_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="Dataset00" onload="Dataset00_onload">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+          <Column id="Column1" type="STRING" size="256"/>
+          <Column id="Column2" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include "Base::loggingValidater.xjs";
+
+this.systemErrorTrace = function(obj:nexacro.Environment,e:nexacro.ErrorEventInfo)
+{
+	this.tracePrint("@Environment_"+e.eventid+"("+e.errortype+","+e.statuscode+") ");
+}
+this.enableSystemErrorTrace();
+
+this.tss7810_onerror = function(obj:nexacro.Form,e:nexacro.ErrorEventInfo)
+{
+	this.tracePrint("@"+obj.id+"_"+e.eventid+"("+e.errortype+","+e.statuscode+") ");
+};
+
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.loadTest("jsp::tss7810_success.xml");
+};
+
+this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.loadTest("jsp::tss7810_error.xml");
+};
+
+this.Button02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.loadTest("jsp::tss7810_notfound.xml");
+};
+
+this.Button03_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.loadTest("jsp::tss7810_broken.xml");
+};
+
+this.Button04_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.loadTest("jsp::tss7810_html.xml");
+};
+
+this.loadTest = function(url)
+{
+	this.Dataset00.set_url(url);
+	this.Dataset00.set_serverdatasetid('ds');
+	this.Dataset00.clear();
+	this.Dataset00.load();
+}
+
+this.Button05_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	nexacro.getEnvironment().set_datasetloadtype("errorallow");
+	this.tracePrint("@DatasetLoadType(errorallow) ");
+};
+
+this.Dataset00_onload = function(obj:nexacro.NormalDataset,e:nexacro.DSLoadEventInfo)
+{
+	this.tracePrint("@"+obj.id+"_"+e.eventid+"("+e.errorcode+","+e.errormsg+","+e.reason+") ");
+	var cis = this.Dataset00.colinfos;
+	var data="";
+	for(var r = 0; r < this.Dataset00.rowcount; r++) {
+		if(r>0)	data +="|";
+		for(var n=0; n < cis.length; n++) {
+			if(n>0)	data +=",";
+			var d = this.Dataset00.getColumn(r,n);
+			data += d;
+		}
+	}
+	this.tracePrint("@"+obj.id+"_"+e.eventid+"_data("+data+") ");
+};
+
+this.StaticA_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	var good = [
+		"Dataset00_onload(0,SUCCESS,3)",
+		"Dataset00_onload_data()",
+		"Dataset00_onload(0,SUCCESS,0)",
+		"Dataset00_onload_data(X,Y,Z)",
+		"form_onerror(CommunicationError,404)",
+		"Environment_onerror(CommunicationError,404)",
+		"Dataset00_onload(0,SUCCESS,0)",
+		"Dataset00_onload_data(X,Y</Co,ZZ)",
+		"form_onerror(CommunicationError,10599)",
+		"Environment_onerror(CommunicationError,10599)",
+		"DatasetLoadType(errorallow)",
+		"Dataset00_onload(0,SUCCESS,0)",
+		"Dataset00_onload_data(X,Y,Z)",
+		"Dataset00_onload(-1,Error,0)",
+		"Dataset00_onload_data(ERR,ERR,ERR)",
+		"form_onerror(CommunicationError,404)",
+		"Environment_onerror(CommunicationError,404)",
+		"Dataset00_onload(0,SUCCESS,0)",
+		"Dataset00_onload_data(X,Y</Co,ZZ)",
+		"form_onerror(CommunicationError,10599)",
+		"Environment_onerror(CommunicationError,10599)"
+	];
+
+	var log = this.selectLog(this.StEventLog.value, ".*", true);
+	var m = this.validateLogSequence(good, log);
+	if (m.length == 0) 
+	{
+		this.logSet('OK');
+	}
+	else 
+	{
+		this.logSet('NG Browser:' + nexacro._Browser + '/' + nexacro._BrowserVersion + '\n' + m.join('\n'));
+	}
+};
+
+
+]]></Script>
+  </Form>
+</FDL>

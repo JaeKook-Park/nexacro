@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[this._findTraceArea = function()
+{
+	var f = this;
+	while( f ) {
+		if( f.StEventLog )
+			return f.StEventLog;
+		f = f.parent;
+	}
+	return null;
+}
+var stopLog = false;
+this.logPrintOnce = function (text)
+{
+	this._findTraceArea().set_value(text);
+	stopLog = true;
+};
+
+this.tracePrint = function (text)
+{
+	if (stopLog) return;
+	this._findTraceArea().insertText(text);
+	if(nexacro._OS == 'iOS') 
+		trace(text);
+};
+this.tracePrintln = function (text)
+{
+	if (stopLog) return;
+	this._findTraceArea().insertText(text+'\n');
+	if(nexacro._OS == 'iOS') 
+		trace(text);
+};
+this.traceSet = function (text)
+{
+	if (stopLog) return;
+	this.StEventLog.set_value(text);
+	if(nexacro._OS == 'iOS') 
+		trace(text);
+};
+this.traceClear = function ()
+{
+	if (stopLog) return;
+	this.StEventLog.set_value('');
+};
+
+this.logPrint = function (text)
+{
+	if (stopLog) return;
+	this.StLog.insertText(text);
+	if(nexacro._OS == 'iOS') 
+		trace(text);
+};
+this.logPrintln = function (text)
+{
+	if (stopLog) return;
+	this.StLog.insertText(text+'\n');
+	if(nexacro._OS == 'iOS') 
+		trace(text);
+};
+this.logSet = function (text)
+{
+	if (stopLog) return;
+	this.StLog.set_value(text);
+	if(nexacro._OS == 'iOS') 
+		trace(text);
+};
+this.logClear = function() {
+	if (stopLog) return;
+	this.StLog.set_value('');
+}
+
+this.getLogName = function (v)
+{
+	var n = v.indexOf('(');
+	if (n == -1) 
+	{
+		return '';
+	}
+	return v.substring(0, n);
+};
+
+this.getLogType = function (v)
+{
+	var n = v.indexOf('_');
+	if (n == -1) 
+	{
+		return '';
+	}
+	return v.substring(n + 1);
+};
+
+this.getBracketsValue = function (v)
+{
+	var sp = v.indexOf('(');
+	if (sp == -1) 
+	{
+		return '';
+	}
+	var ep = v.indexOf(')', sp + 1);
+	if (ep == -1) 
+	{
+		return '';
+	}
+	return v.substring(sp + 1, ep);
+};
+
+this.stripLogBrackets = function(log) {
+	var d = [];
+	for(var i = 0; i < log.length; i++) {
+		d.push(this.getBracketsValue(log[i]).trim());
+	}
+	return d;
+};
+
+this.stripLogNames= function(log) {
+	var d = [];
+	for(var i = 0; i < log.length; i++) {
+		d.push(this.getLogName(log[i]).trim());
+	}
+	return d;
+};
+
+this.selectLog = function(v, cond, firstOnly)
+{
+	var log = v.split('@');
+	if(log.length > 0 && log[0] === "")
+		log.splice(0,1);
+	if(cond)
+		return this.filterLog(log,cond,firstOnly);
+	else {
+		for(var i = 0; i < log.length; i++) {
+			log[i] = log[i].trim();
+		}
+		return log;
+	}
+};
+this.filterLog = function(log, cond, firstOnly)
+{
+	var reg = new RegExp(cond);
+	var mlog = [];
+	for(var i = 0; i < log.length; i++) {
+		var d = log[i].trim();
+		if(d != "") {
+			var pos = d.search(reg);
+			if(pos == 0 || (!firstOnly && pos != -1))
+				mlog.push(d);
+		}
+	}
+	return mlog;
+};
+this.findLogPosition = function(log, n, v) {
+	for(var i = n; i < log.length; i++) {
+		if(log[i] == v)
+			return i-n;
+	}
+	return -1;
+};
+
+this.validateLogSequence = function(good, log) {
+	if(this.applyStdEventFilters) {
+		good = this.applyStdEventFilters(good);
+		log = this.applyStdEventFilters(log);
+	}
+	var m = [];
+	var len = good.length < log.length ? good.length : log.length;
+	var gi = 0;
+	var li = 0;
+	if(len == 0) {
+		m.push("NG validate data is empty");
+		return m;
+	}
+	while(gi < good.length && li < log.length) {
+		var gv = good[gi];
+		var lv = log[li];
+		if(gv != lv) {
+			var gn = this.findLogPosition(good, gi, lv);
+			var ln = this.findLogPosition(log, li, gv);
+			if( gn != -1 && (ln == -1 || gn < ln)) {
+				m.push("NG "+gv+" -> ?"); gi++;
+			}
+			else if( ln != -1 && (gn == -1 || ln < gn)) {
+				m.push("NG ? -> "+lv); li++; 
+			}
+			else {
+				m.push("NG "+gv+" -> "+lv); gi++; li++;
+			}
+		} else {
+			gi++; li++;
+		}
+	}
+	while(gi < good.length) {
+		m.push("NG "+good[gi++]+" -> ?");
+	}
+	while(li < log.length) {
+		m.push("NG ? -> "+log[li++]);
+	}
+	return m;
+};
+
+this.validateDiff = function(good, log) {
+	if(this.applyStdEventFilters) {
+		good = this.applyStdEventFilters(good);
+		log = this.applyStdEventFilters(log);
+	}
+	var goodText = good.join("\n");
+	var logText = log.join("\n");
+	var dmp = new nexacro.getEnvironment().createDiff();
+	var a = dmp.diff_linesToChars_(goodText, logText);
+	var lineText1 = a.chars1;
+	var lineText2 = a.chars2;
+	var lineArray = a.lineArray;
+	var diffs = dmp.diff_main(lineText1, lineText2, false);
+	dmp.diff_cleanupSemantic(diffs);
+	dmp.diff_charsToLines_(diffs, lineArray);
+	if(diffs.length==1 && diffs[0][0] == 0)
+		return null;
+	var m="";
+	for(var i=0; i<diffs.length;i++) {
+		var s=diffs[i];
+		var t=s[1].replace(/↵/g,"\n");
+		if(t.charAt(t.length-1) == "\n")
+			t = t.substring(0,t.length-1);
+		if(s[0] < 0) {
+			m += t.replace(/^/mg,"- ");
+		}
+		else if(s[0] > 0 ) {
+			m += t.replace(/^/mg,"+ ");
+		}
+		else {
+			m += t.replace(/^/mg,"  ");
+		}
+		m += "\n";
+	}
+	return m;	
+	/*
+	var lineArray = dmp.diff_linesToChars_(text1, text2);
+	var diff = dmp.diff_main(goodText, logText, false);
+	dmp.diff_charsToLines_(diffs, lineArray);
+	dmp.diff_cleanupSemantic(diff);
+	//dmp.diff_cleanupEfficiency(diff);
+	var patches = dmp.patch_make(diff);
+	var diffText = dmp.patch_toText(patches) ;
+	return diffText;*/
+};
+
+this.validateLogData = function (tag, good, log)
+{
+	var m = [];
+	var data = this.stripLogBrackets(log);
+	var len = good.length < data.length ? good.length : data.length;
+	var gi = 0;
+	var li = 0;
+	while(gi < good.length && li < data.length) {
+		if(good[gi].trim() != data[li]) {
+			var gn = this.findLogPosition(good, gi, data[li]);
+			var ln = this.findLogPosition(data, li, good[gi]);
+			if( gn != -1 && (ln == -1 || gn < ln)) {
+				m.push("NG "+tag+"("+good[gi++]+") -> ?");
+			}
+			else if( ln != -1 && (gn == -1 || ln < gn)) {
+				m.push("NG ? -> "+log[li++]);
+			}
+			else {
+				m.push("NG "+tag+"("+good[gi++]+") -> "+log[li++]);
+			}
+		} else {
+			gi++; li++;
+		}
+	}
+	while(gi < good.length) {
+		m.push("NG "+tag+"("+good[gi++]+") -> ?");
+	}
+	while(li < log.length) {
+		m.push("NG ? -> "+log[li++]);
+	}
+	return m;
+};
+
+this.validateLogNameSequence = function (good, rawlog)
+{
+	var log = this.stripLogNames(rawlog);
+	var m = [];
+	var len = good.length < log.length ? good.length : log.length;
+	var gi = 0;
+	var li = 0;
+	while(gi < good.length && li < log.length) {
+		var gv = good[gi];
+		var lv = log[li];
+		if(gv != lv) {
+			var gn = this.findLogPosition(good, gi, lv);
+			var ln = this.findLogPosition(log, li, gv);
+			if( gn != -1 && (ln == -1 || gn < ln)) {
+				m.push("NG "+gv+" -> ?"); gi++;
+			}
+			else if( ln != -1 && (gn == -1 || ln < gn)) {
+				m.push("NG ? -> "+lv); li++; 
+			}
+			else {
+				m.push("NG "+gv+" -> "+lv); gi++; li++;
+			}
+		} else {
+			gi++; li++;
+		}
+	}
+	while(gi < good.length) {
+		m.push("NG "+good[gi++]+" -> ?");
+	}
+	while(li < log.length) {
+		m.push("NG ? -> "+log[li++]);
+	}
+	return m;
+};
+
+this.enableSystemErrorTrace = function()
+{
+	var environment = nexacro.getEnvironment();
+	if(environment) {
+		environment.errorProxy = this.systemErrorTrace;
+		environment.errorProxyScope = this;
+	}
+};
+
+var traceFunc
+var pThis;
+this.enableTraceHook = function()
+{
+	traceFunc = window.trace;
+	pThis = this;
+	window.trace = function() {
+		var result = "";
+		for (var i = 0; i < arguments.length; i++) {
+			result += arguments[i] + " ";
+		}
+		pThis.tracePrint("@trace("+result.trim()+") ");
+		traceFunc.apply(this,arguments);
+	}
+};
+
+this.systemErrorTrace = function(obj:nexacro.Environment,e:nexacro.ErrorEventInfo)
+{
+	this.tracePrint("@systemError("+
+		e.errormsg+","+
+		e.errortype+","+
+		e.eventid+","+
+		e.locationuri+","+
+		e.requesturi+","+
+		e.statuscode +") ");
+}]]></Script>
