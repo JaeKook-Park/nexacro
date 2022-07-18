@@ -3,7 +3,7 @@
   <Form id="datasetload" width="1280" height="720" titletext="New Form">
     <Layouts>
       <Layout height="720" width="1280">
-        <Grid id="Grid00" taborder="0" left="38" top="34" width="291" height="136" binddataset="Dataset00">
+        <Grid id="Grid00" taborder="0" left="115" top="20" width="291" height="136" binddataset="Dataset00">
           <Formats>
             <Format id="default">
               <Columns>
