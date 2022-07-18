@@ -31,7 +31,7 @@
         <Button id="Button00" taborder="1" text="Success" left="38" top="180" width="184" height="35" onclick="Button00_onclick"/>
         <Button id="Button01" taborder="2" text="ErrorCode -1" left="38" top="220" width="184" height="35" onclick="Button01_onclick"/>
         <Button id="Button03" taborder="3" text="Broken XML" left="38" top="260" width="184" height="35" onclick="Button03_onclick"/>
-        <Button id="Button05" taborder="4" text="DatasetLoadType=errorallow" left="246" top="185" width="184" height="35" onclick="Button05_onclick"/>
+        <Button id="Button05" taborder="4" text="DatasetLoadType=errorallow" left="256" top="185" width="184" height="35" onclick="Button05_onclick"/>
         <TextArea id="StEventLog" taborder="5" readonly="false" left="16" top="330" height="170" wordWrap="english" background="azure" color="black" font="12pt &quot;MS Gothic&quot;" right="272"/>
         <Button id="Button03_00" taborder="6" text="Broken3 XML" left="238" top="260" width="184" height="35" onclick="Button03_00_onclick"/>
       </Layout>
