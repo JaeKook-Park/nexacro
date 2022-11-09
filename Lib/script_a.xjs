@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[include "Lib::script_b.xjs"
+
+this.func_a = function(a) 
+{
+	return this.func_b(a)*2;   
+}]]></Script>
