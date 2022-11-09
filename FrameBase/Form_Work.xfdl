@@ -3,7 +3,7 @@
   <Form id="Form_Work" width="1280" height="720" titletext="Form_Work">
     <Layouts>
       <Layout width="1280" height="720" screenid="Desktop_screen">
-        <Spin id="Spin00" taborder="0" left="104" top="20" width="196" height="45" buttonsize="30" displaycomma="true"/>
+        <Spin id="Spin00" taborder="0" left="90" top="95" width="196" height="45" buttonsize="30" displaycomma="true"/>
         <ImageViewer id="ImageViewer00" taborder="1" text="ImageViewer00" left="518" top="79" width="90" height="100" image="url('imagerc::m_ironman.jpg')"/>
       </Layout>
       <Layout name="Tablet_screen" width="800" height="1280" screenid="Tablet_screen"/>
