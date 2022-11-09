@@ -124,7 +124,7 @@
     <Script type="xscript5.1"><![CDATA[
 this.Menu_onmenuclick = function(obj:nexacro.Menu,e:nexacro.MenuClickEventInfo)
 {
-	this.StEventLog.insertText(obj.id+"_"+e.id+"_"+e.eventid+" ");
+	this.StEventLog.insertText(obj.id+"_"+e.id+"_"+e.eventid+"   ");
 };
 ]]></Script>
   </Form>
