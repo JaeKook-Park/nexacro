@@ -111,6 +111,7 @@ this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	//this.Dataset00.setRowType(this.Dataset00.rowposition, Dataset.ROWTYPE_DELETE);
 	//this.Dataset00_00.copyData(this.Dataset00);
 	//this.Dataset00_00.setRowType(this.Dataset00.rowposition, Dataset.ROWTYPE_DELETE);
+	
 	this.Dataset00.deleteRow(this.Dataset00.rowposition);
 	
 };

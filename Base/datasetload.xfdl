@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+癤�<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
   <Form id="datasetload" width="1280" height="720" titletext="New Form">
     <Layouts>
@@ -49,6 +49,7 @@
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.loadTest("jsp::success.xml");
+	trace("Button00_onclick");
 };
 this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
