@@ -27,7 +27,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Button id="Button00" taborder="3" text="InnerDataset 설정" left="100" top="10" width="130" height="30" onclick="Button00_onclick"/>
+        <Button id="Button00" taborder="3" text="InnerDataset 설정" left="155" top="40" width="130" height="30" onclick="Button00_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
